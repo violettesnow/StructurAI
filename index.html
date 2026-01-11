@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>StructurAI | Turn saved prompts into reusable workflows</title>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Turn saved prompts into reusable workflows. StructurAI scans X, Gmail, and Drive to organize scattered inspiration into production-ready infrastructure.">
     <meta name="theme-color" content="#0a0e1a">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -98,17 +98,16 @@
         }
 
         h1, h2 { text-wrap: balance; }
-        
         button, a { transition: all 0.3s ease; touch-action: manipulation; }
     </style>
 </head>
 <body class="font-sans">
 
-    <!-- Background -->
+    <!-- Background Layer -->
     <div class="fixed inset-0 grid-pattern pointer-events-none -z-10"></div>
     <div class="fixed inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(99,102,241,0.05)_0%,transparent_70%)] pointer-events-none -z-10"></div>
 
-    <!-- Nav -->
+    <!-- Sticky Navigation -->
     <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-center pointer-events-none">
         <div class="max-w-6xl w-full flex items-center justify-between glass px-6 md:px-8 py-3 rounded-full border border-white/10 pointer-events-auto shadow-2xl">
             <div class="flex items-center gap-3">
@@ -126,7 +125,7 @@
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col items-center justify-center px-6 text-center overflow-hidden">
         <canvas id="particle-canvas"></canvas>
         <div class="max-w-5xl mx-auto relative z-10 hero-content reveal active">
@@ -152,8 +151,21 @@
         </div>
     </section>
 
-    <!-- Features -->
-    <section id="features" class="py-32 md:py-60 border-t border-white/5">
+    <!-- Problem & Pain Points -->
+    <section id="problem" class="py-32 md:py-52 relative border-y border-white/5 bg-navy-light/5">
+        <div class="max-w-4xl mx-auto px-8 text-center reveal">
+            <div class="text-magenta font-mono text-xs mb-6 uppercase tracking-[0.4em]">Developer Friction</div>
+            <h2 class="fluid-h2 mb-10 text-white">
+                Your best prompts are <span class="text-magenta">buried.</span>
+            </h2>
+            <p class="fluid-body text-gray-400 max-w-2xl mx-auto">
+                Inspiration is currently a waste of your time if you can't find it when building. We turn scattered notes into a <strong>systematic building advantage.</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- Features & Infrastructure -->
+    <section id="features" class="py-32 md:py-60">
         <div class="max-w-7xl mx-auto px-8">
             <div class="max-w-3xl mb-24 reveal">
                 <h2 class="fluid-h2 mb-6 text-white">Infrastructure for builders.</h2>
@@ -179,10 +191,10 @@
         </div>
     </section>
 
-    <!-- How It Works -->
+    <!-- Pipeline Step-by-Step -->
     <section id="how-it-works" class="py-32 md:py-60 bg-navy-light/10 border-t border-white/5">
         <div class="max-w-5xl mx-auto px-8">
-            <h2 class="fluid-h2 mb-24 text-center text-white reveal">The Pipeline</h2>
+            <h2 class="fluid-h2 mb-24 text-center text-white reveal">The Automated Pipeline</h2>
             <div class="space-y-32">
                 <div class="flex flex-col md:flex-row items-center gap-12 reveal">
                     <div class="w-20 h-20 rounded-3xl bg-indigo text-white flex items-center justify-center text-4xl font-black shadow-2xl shrink-0">1</div>
@@ -209,19 +221,20 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Professional Footer -->
     <footer class="py-20 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo to-magenta flex items-center justify-center font-bold text-white">S</div>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo to-magenta flex items-center justify-center font-bold text-white shadow-xl">S</div>
                 <span class="font-bold tracking-tight text-2xl text-white">StructurAI</span>
             </div>
             <p class="text-[10px] font-mono text-gray-600 uppercase tracking-widest">© 2025 StructurAI Inc. Systems over bookmarks.</p>
         </div>
     </footer>
 
+    <!-- Vanilla Javascript Logic -->
     <script>
-        // Particle Engine Logic
+        // Particle Engine
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -320,7 +333,7 @@
         init();
         animate();
 
-        // Reveal animations & Interaction
+        // Reveal animations & Scroll Interactivity
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
