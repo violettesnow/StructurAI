@@ -10,26 +10,40 @@ import LandingPage from './components/LandingPage';
 const App: React.FC = () => {
   const [view, setView] = useState<'landing' | 'checkout' | 'app'>('landing');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const handleStartBuilding = () => {
     setView('checkout');
+  };
+
+  // Helper to show transient notifications
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   useEffect(() => {
     if (view === 'checkout') {
       const timer = setTimeout(() => {
         setView('app');
+        showToast('System Ingestion Online');
       }, 2500);
       return () => clearTimeout(timer);
     }
   }, [view]);
 
+  // Pass necessary handlers to TemplateLibrary to satisfy its required props.
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
       case 'library':
-        return <TemplateLibrary />;
+        return (
+          <TemplateLibrary 
+            onShowToast={showToast} 
+            onPreviewShared={(template) => showToast(`Previewing: ${template.name}`)} 
+          />
+        );
       case 'sources':
         return <SourceNodes />;
       case 'brand':
@@ -56,7 +70,7 @@ const App: React.FC = () => {
             </svg>
           </div>
 
-          <h2 className="text-2xl font-bold mb-4">Redirecting to Stripe...</h2>
+          <h2 className="text-2xl font-bold mb-4 text-white">Redirecting to Stripe...</h2>
           <p className="text-gray-400 text-sm mb-8 leading-relaxed">
             Please wait while we set up your secure checkout session for StructurAI Pro.
           </p>
@@ -75,13 +89,15 @@ const App: React.FC = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <main className="flex-1 overflow-y-auto bg-gradient-to-br from-navy to-navy-light relative">
-        {/* Success Toast */}
-        <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-4 duration-500">
-          <div className="glass px-6 py-3 rounded-full border-green-500/30 border bg-green-500/10 flex items-center gap-3 shadow-2xl">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-xs font-bold text-green-500 uppercase tracking-widest">Payment Successful</span>
+        {/* Dynamic Toast System */}
+        {toastMessage && (
+          <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-4 duration-500">
+            <div className="glass px-6 py-3 rounded-full border-indigo/30 border bg-indigo/10 flex items-center gap-3 shadow-2xl">
+              <div className="w-2 h-2 rounded-full bg-indigo animate-pulse"></div>
+              <span className="text-xs font-bold text-indigo uppercase tracking-widest">{toastMessage}</span>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Subtle glow elements */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo/5 blur-[120px] rounded-full -z-10"></div>
