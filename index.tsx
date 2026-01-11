@@ -1,1 +1,1 @@
-// File removed during static site conversion.
+// DELETED
