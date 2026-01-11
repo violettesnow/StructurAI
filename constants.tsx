@@ -44,6 +44,12 @@ export const ICONS = {
       <line x1="12" y1="5" x2="12" y2="19" />
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
+  ),
+  Link: (props: any) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
   )
 };
 
@@ -54,7 +60,9 @@ export const MOCK_TEMPLATES: any[] = [
     description: 'Structural review of React components for performance and scalability.',
     category: 'Engineering',
     usageCount: 124,
-    status: 'ready'
+    status: 'ready',
+    systemPrompt: "You are a senior frontend architect. Review the provided code for performance bottlenecks, accessibility issues, and structural integrity...",
+    userVariables: ["component_code", "framework_version"]
   },
   {
     id: '2',
@@ -62,7 +70,9 @@ export const MOCK_TEMPLATES: any[] = [
     description: 'Systematic grading of RAG pipeline outputs using structured metrics.',
     category: 'AI Research',
     usageCount: 89,
-    status: 'active'
+    status: 'active',
+    systemPrompt: "Evaluate the faithfulness, relevance, and accuracy of the LLM response based on the retrieved context provided...",
+    userVariables: ["context", "query", "response"]
   },
   {
     id: '3',
@@ -70,6 +80,8 @@ export const MOCK_TEMPLATES: any[] = [
     description: 'Creates SEO-optimized outlines for developer-focused tutorials.',
     category: 'Content',
     usageCount: 45,
-    status: 'draft'
+    status: 'draft',
+    systemPrompt: "Create a detailed technical outline for a blog post based on the following topic and target audience...",
+    userVariables: ["topic", "audience"]
   }
 ];

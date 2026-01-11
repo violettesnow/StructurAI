@@ -1,33 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StructurAI | Systems Over Bookmarks</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="StructurAI">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+
+    <!-- Viewport for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        navy: {
-                            DEFAULT: '#0a0e1a',
-                            light: '#111827',
-                            lighter: '#1f2937'
-                        },
-                        indigo: {
-                            DEFAULT: '#6366f1',
-                            hover: '#4f46e5'
-                        },
-                        magenta: {
-                            DEFAULT: '#ec4899',
-                            hover: '#db2777'
-                        }
+                        navy: { DEFAULT: '#0a0e1a', light: '#111827', lighter: '#1f2937' },
+                        indigo: { DEFAULT: '#6366f1', hover: '#4f46e5' },
+                        magenta: { DEFAULT: '#ec4899', hover: '#db2777' }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -38,11 +41,23 @@
         }
     </script>
     <style>
+        :root {
+            --fluid-h1: clamp(2.5rem, 8vw, 5rem);
+            --fluid-h2: clamp(2rem, 6vw, 3.5rem);
+            --fluid-body: clamp(1rem, 2.5vw, 1.125rem);
+        }
         body {
             background-color: #0a0e1a;
             color: #f3f4f6;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            line-height: 1.6;
         }
+        .fluid-h1 { font-size: var(--fluid-h1); font-weight: 800; letter-spacing: -0.04em; line-height: 1.0; }
+        .fluid-h2 { font-size: var(--fluid-h2); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+        .fluid-body { font-size: var(--fluid-body); line-height: 1.8; letter-spacing: 0.01em; max-width: 70ch; }
+        
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -53,21 +68,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gradient-border {
-            position: relative;
-            background: #0a0e1a;
-            background-clip: padding-box;
-            border: 1px solid transparent;
-        }
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            z-index: -1;
-            margin: -1px;
-            border-radius: inherit;
-            background: linear-gradient(to right, #6366f1, #ec4899);
-        }
+        /* Mobile-first section spacing */
+        section { padding: clamp(4rem, 10vh, 10rem) 0; }
+        
+        /* Smooth tap targets */
+        button, a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation; }
+        
+        /* Scroll behavior */
+        html { scroll-behavior: smooth; }
+
+        /* Prevent zoom on focus */
+        input:focus { font-size: 16px; }
     </style>
 <script type="importmap">
 {
@@ -78,6 +89,15 @@
     "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
   }
 }
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('Service Worker registration failed'));
+      });
+    }
 </script>
 </head>
 <body>
